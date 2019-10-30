@@ -18,7 +18,7 @@ git pull origin master
 ```
 git clone --recursive https://github.com/VowpalWabbit/vowpal_wabbit.git
 make
-```
+``` 
 
 ### Data
 Data was provided by the teaching staff and can be found [here](https://5harad.com/mse231/assets/trump_data.tsv). Data is formatted with three columns as below:
