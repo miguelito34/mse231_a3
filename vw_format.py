@@ -28,6 +28,7 @@ def get_datetime_features(dt_info):
     return "|time hour:" + str(dt_object.hour) + " minute:" + str(dt_object.minute)
 
 
+# NOTE: Still need to implment tweet length
 def get_text_features(text_info):
     
     return ("|text num_caps:" + count_char_type(text_info, "caps") 
@@ -68,8 +69,6 @@ for line in sys.stdin:
     # |time hour:[hour] min_of_hour:[min_of_hour]
     # |text num_caps:[num_caps] num_ats:[num_ats] num_hash:[num_hash] link retweet text_length:[text_length]
     print(label, time_features, text_features)
-    print(line)
-    print("")
     
     # use nltk line below if we want to parse out the tweet
     #nltk.tokenize.casual.casual_tokenize(tweet_info[2])

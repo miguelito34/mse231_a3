@@ -37,6 +37,19 @@ git clone --recursive https://github.com/VowpalWabbit/vowpal_wabbit.git
 make
 ```
 
+### Replicate Steps
+Assuming the above steps went well, all you need to replicate the steps below are `training_data.tsv`, `test_data.tsv`, and `vw_format.py`. These steps should be re-run anytime changes to `vw_format.py` are made to ensure the model is being trained on the most up-to-date set of features.
+
+1. Format the raw data into a vw readable format with the decided upon features
+```
+cat training_data.tsv | python3 vw_format.py > vw_training_data.txt
+```
+
+2. Train the model on the training data
+```
+vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
+```
+
 ### Data
 Data was provided by the teaching staff and can be found [here](https://5harad.com/mse231/assets/trump_data.tsv). Data is formatted with three columns as below:
 ```
@@ -44,6 +57,17 @@ source time_posted text
 ```
 
 ### Approach and Strategy
+In order to train our logistic model and determine who actually tweeted a given tweet, we parsed the data into the following features:
+```
+hour - (continuous) 
+minute of hour - (continuous)
+number of capital letters used - (continuous)
+number of @'s present in the tweet - (continuous)
+number of hashtags present in the tweet - (continuous)
+whether any type of media was included (i.e. a link, photo, or video) - (discrete)
+whether the tweet was a retweet of something else - (discrete)
+length of the tweet in characters - (continuous)
+```
 
 ### Results
 
