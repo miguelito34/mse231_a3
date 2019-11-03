@@ -7,7 +7,6 @@
 
 # Libraries
 import sys
-import nltk
 from datetime import datetime as dt
 
 # Parameters
