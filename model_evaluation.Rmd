@@ -1,0 +1,17 @@
+---
+title: "HW 3 Model Evaluation"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+raw_data_train <- read_tsv("training_data.tsv", col_names = FALSE)
+```
+
+```{r}
+data_train <- 
+  raw_data_train %>% 
+  rename(tweeter = X1, date_time = X2, tweet_text = X3) %>%
+  mutate(labels = ifelse(tweeter == "Trump", 1, -1))
+
+```
