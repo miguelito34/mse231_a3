@@ -1,17 +1,68 @@
 ---
 title: "HW 3 Model Evaluation"
-output: html_document
+output: pdf_document
 ---
 
+## Setup
+
+### Load Libraries
 ```{r}
 library(tidyverse)
-raw_data_train <- read_tsv("training_data.tsv", col_names = FALSE)
+library(ROCR)
 ```
 
+### Parameters
 ```{r}
-data_train <- 
-  raw_data_train %>% 
-  rename(tweeter = X1, date_time = X2, tweet_text = X3) %>%
-  mutate(labels = ifelse(tweeter == "Trump", 1, -1))
+## file paths
+path_training_data <- "training_data.tsv"
+path_training_preds <- "training_predictions.txt"
 
+## thresholds
+threshold_train <- .5
 ```
+
+### Load Data
+```{r}
+labels_train <-
+	path_training_data %>% 
+	read_tsv(col_names = FALSE) %>% 
+	transmute(
+		label = X1
+	)
+
+preds_train <-
+	path_training_preds %>% 
+	read_csv(col_names = FALSE) %>% 
+	rename(raw_preds = X1)
+```
+
+### Transform Data
+```{r}
+data_train <-
+	tibble(
+		labels = labels_train$label,
+		raw_preds = preds_train$raw_preds,
+		preds = ifelse(raw_preds > threshold_train, "Trump", "Staff")
+	)
+
+data_train
+```
+
+## Evaluation
+
+### Accuracy
+```{r}
+mean(data_train$labels == data_train$preds)
+```
+
+### Recall
+
+
+### AUC
+```{r}
+pred <- prediction(data_train$raw_preds, data_train$labels)
+perf <- performance(pred, "auc")
+auc <- perf@y.values[[1]]
+sprintf(auc, fmt = "AUC: %.2f")
+```
+
