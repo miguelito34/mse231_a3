@@ -17,20 +17,20 @@ INDEX_TWEET = 2
 
 def get_label(tweeter):
     if (tweeter == "Trump"):
-        return str("1 ")
+        return str("1")
     else: 
-        return str("-1 ")
+        return str("-1")
 
 
 def get_datetime_features(dt_info):
     dt_object = dt.strptime(dt_info, "%Y-%m-%dT%H:%M:%SZ")
-    return "|time hour:" + str(dt_object.hour) + " minute:" + str(dt_object.minute)
+    return " |time hour:" + str(dt_object.hour) + " minute:" + str(dt_object.minute)
 
 
 # NOTE: Still need to implment tweet length
 def get_text_features(text_info):
     
-    return ("|text num_caps:" + count_char_type(text_info, "caps") 
+    return (" |text num_caps:" + count_char_type(text_info, "caps") 
             + " num_ats:" + count_char_type(text_info, "ats") 
             + " num_hash:" + count_char_type(text_info, "hash")
             + " " + str("https:" in text_info)
@@ -67,7 +67,7 @@ for line in sys.stdin:
     # label 
     # |time hour:[hour] min_of_hour:[min_of_hour]
     # |text num_caps:[num_caps] num_ats:[num_ats] num_hash:[num_hash] link retweet text_length:[text_length]
-    print(label, time_features, text_features)
+    print(label + time_features + text_features)
     
     # use nltk line below if we want to parse out the tweet
     #nltk.tokenize.casual.casual_tokenize(tweet_info[2])
