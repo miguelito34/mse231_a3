@@ -50,6 +50,11 @@ cat training_data.tsv | python3 vw_format.py > vw_training_data.txt
 vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
 ```
 
+3. Create predictions for the training data
+```
+vw -d vw_training_data.txt -t -i predictor.vw -p training_predictions.txt --link=logistic
+```
+
 ### Data
 Data was provided by the teaching staff and can be found [here](https://5harad.com/mse231/assets/trump_data.tsv). Data is formatted with three columns as below:
 ```
