@@ -24,7 +24,7 @@ def get_label(tweeter):
 
 def get_datetime_features(dt_info):
     dt_object = dt.strptime(dt_info, "%Y-%m-%dT%H:%M:%SZ")
-    return " |time hour:" + str(dt_object.hour) + " minute:" + str(dt_object.minute)
+    return (" |time hour_" + str(dt_object.hour))
 
 
 # NOTE: Still need to implment tweet length
@@ -33,8 +33,8 @@ def get_text_features(text_info):
     return (" |text num_caps:" + count_char_type(text_info, "caps") 
             + " num_ats:" + count_char_type(text_info, "ats") 
             + " num_hash:" + count_char_type(text_info, "hash")
-            + " " + str("https:" in text_info)
-            + " " + str("\"@" in text_info))
+            + " has_https_" + str("https:" in text_info)
+            + " is_retweet_" + str("\"@" in text_info))
 
 
 def count_char_type(text, char = "caps"):

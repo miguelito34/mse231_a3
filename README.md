@@ -63,16 +63,21 @@ source time_posted text
 
 ### Approach and Strategy
 In order to train our logistic model and determine who actually tweeted a given tweet, we parsed the data into the following features:
-```
-hour - (continuous) 
-minute of hour - (continuous)
-number of capital letters used - (continuous)
-number of @'s present in the tweet - (continuous)
-number of hashtags present in the tweet - (continuous)
-whether any type of media was included (i.e. a link, photo, or video) - (discrete)
-whether the tweet was a retweet of something else - (discrete)
-length of the tweet in characters - (continuous)
-```
+
+#### Models attempted
+Model 1
+File: vw_format_m1.py
+Accuracy: 
+Recall: 
+AUC: 
+Description: Hour and minute are both continuous, checks num_caps, num_ats, num_hash, has_https, is_retweet
+
+Model 2
+File: vw_format_m2.py
+Accuracy: 
+Recall: 
+AUC: 
+Description: Hour and minute are both continuous, checks num_caps, num_ats, num_hash, has_https, is_retweet
 
 ### Results
 
