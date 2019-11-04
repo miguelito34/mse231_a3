@@ -42,18 +42,23 @@ Assuming the above steps went well, all you need to replicate the steps below ar
 
 1. Format the raw data into a vw readable format with the decided upon features
 ```
-cat training_data.tsv | python3 vw_format.py > vw_training_data.txt
+cat training_data.tsv | python3 vw_format_m#.py > vw_training_data.txt
+cat test_data.tsv | python3 vw_format_m#.py > vw_test_data.txt
 ```
 
-2. Train the model on the training data
+2. Train the model on the vw-formatted training data. For example, with simple logistic loss:
 ```
 vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
 ```
 
-3. Create predictions for the training data
+3. Create predictions for the training and test data
 ```
 vw -d vw_training_data.txt -t -i predictor.vw -p training_predictions.txt --link=logistic
+vw -d vw_test_data.txt -t -i predictor.vw -p test_predictions.txt --link=logistic
 ```
+
+4. Evaluate in model_evaluation.Rmd
+
 
 ### Data
 Data was provided by the teaching staff and can be found [here](https://5harad.com/mse231/assets/trump_data.tsv). Data is formatted with three columns as below:
@@ -64,20 +69,27 @@ source time_posted text
 ### Approach and Strategy
 In order to train our logistic model and determine who actually tweeted a given tweet, we parsed the data into the following features:
 
-#### Models attempted
-Model 1
-File: vw_format_m1.py
-Accuracy: 
-Recall: 
-AUC: 
+#### Model 1
+Format file: vw_format_m1.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
+Test accuracy: 
+Test AUC: 
 Description: Hour and minute are both continuous, checks num_caps, num_ats, num_hash, has_https, is_retweet
 
-Model 2
-File: vw_format_m2.py
-Accuracy: 
-Recall: 
-AUC: 
-Description: Hour and minute are both continuous, checks num_caps, num_ats, num_hash, has_https, is_retweet
+#### Model 2
+Format file: vw_format_m2.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
+Test accuracy: 0.8433735
+Test AUC: 0.9220839
+Description: same as model 1, except time is only hour indicators (e.g. hour_1, hour2, etc.)
+
+#### Model 3
+Format file: vw_format_m3.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
+Test accuracy: 0.8393574
+Test AUC: 0.9249672
+Description: same as model 1, except time is represented by four "parts of day", e.g. "morning" 
+
 
 ### Results
 

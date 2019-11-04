@@ -16,53 +16,76 @@ library(ROCR)
 ## file paths
 path_training_data <- "training_data.tsv"
 path_training_preds <- "training_predictions.txt"
+path_test_data <- "test_data.tsv"
+path_test_preds <- "test_predictions.txt"
 
-## thresholds
-threshold_train <- .5
+## threshold
+threshold <- .5
 ```
 
 ### Load Data
 ```{r}
 labels_train <-
-	path_training_data %>% 
-	read_tsv(col_names = FALSE) %>% 
+	path_training_data %>%
+	read_tsv(col_names = FALSE) %>%
 	transmute(
 		label = X1
 	)
 
 preds_train <-
-	path_training_preds %>% 
+	path_training_preds %>%
+	read_csv(col_names = FALSE) %>%
+	rename(raw_preds = X1)
+
+labels_test <-
+	path_test_data %>% 
+	read_tsv(col_names = FALSE) %>% 
+	transmute(
+		label = X1
+	)
+
+preds_test <-
+	path_test_preds %>% 
 	read_csv(col_names = FALSE) %>% 
 	rename(raw_preds = X1)
 ```
 
 ### Transform Data
 ```{r}
-data_train <-
+(data_train <-
 	tibble(
 		labels = labels_train$label,
 		raw_preds = preds_train$raw_preds,
-		preds = ifelse(raw_preds > threshold_train, "Trump", "Staff")
-	)
+		preds = ifelse(raw_preds > threshold, "Trump", "Staff")
+	))
 
-data_train
+(data_test <-
+	tibble(
+		labels = labels_test$label,
+		raw_preds = preds_test$raw_preds,
+		preds = ifelse(raw_preds > threshold, "Trump", "Staff")
+	))
 ```
 
 ## Evaluation
 
 ### Accuracy
 ```{r}
-mean(data_train$labels == data_train$preds)
+train_acc <- mean(data_train$labels == data_train$preds)
+test_acc <- mean(data_test$labels == data_test$preds)
+print(c("Training Accuracy" = train_acc, "Test Accuracy" = test_acc))
 ```
-
-### Recall
-
 
 ### AUC
 ```{r}
-pred <- prediction(data_train$raw_preds, data_train$labels)
-perf <- performance(pred, "auc")
-auc <- perf@y.values[[1]]
-sprintf(auc, fmt = "AUC: %.2f")
+pred_train <- prediction(data_train$raw_preds, data_train$labels)
+perf_train <- performance(pred_train, "auc")
+auc_train <- perf_train@y.values[[1]]
+
+pred_test <- prediction(data_test$raw_preds, data_test$labels)
+perf_test <- performance(pred_test, "auc")
+auc_test <- perf_test@y.values[[1]]
+print(c("Train AUC" = auc_train, "Test AUC" = auc_test))
+
 ```
 
