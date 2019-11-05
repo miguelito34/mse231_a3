@@ -6,3 +6,6 @@ training_predictions.txt
 vw_test_data.txt
 vw_training_data.txt
 .DS_Store
+scratch.ipynb
+.ipynb_checkpoints/
+Rplots.pdf

@@ -1,32 +1,33 @@
----
-title: "HW 3 Model Evaluation"
-output: pdf_document
----
+################################################################################
+## Author: Michael Spencer, Andrew (Foster) Docherty, Jorge Nam Song
+## Project: MS&E 231 A3
+## Script Purpose: Formats tweet data into a readable format for Vowpal Wabbit.
+## Notes: Good features may include hour of day, minute of hour, number of 
+##        capital letters...
+################################################################################
 
 ## Setup
 
 ### Load Libraries
-```{r}
 if (!require(tidyverse)) install.packages("tidyverse")
 library(tidyverse)
 if (!require(ROCR)) install.packages("ROCR")
 library(ROCR)
-```
+
 
 ### Parameters
-```{r}
-## file paths
+
+#### file paths
 path_training_data <- "training_data.tsv"
 path_training_preds <- "training_predictions.txt"
 path_test_data <- "test_data.tsv"
 path_test_preds <- "test_predictions.txt"
 
-## threshold
+#### threshold
 threshold <- .5
-```
+
 
 ### Load Data
-```{r}
 labels_train <-
 	path_training_data %>%
 	read_tsv(col_names = FALSE) %>%
@@ -50,36 +51,33 @@ preds_test <-
 	path_test_preds %>% 
 	read_csv(col_names = FALSE) %>% 
 	rename(raw_preds = X1)
-```
+
 
 ### Transform Data
-```{r}
-(data_train <-
-	tibble(
-		labels = labels_train$label,
-		raw_preds = preds_train$raw_preds,
-		preds = ifelse(raw_preds > threshold, "Trump", "Staff")
-	))
+data_train <-
+		tibble(
+			labels = labels_train$label,
+			raw_preds = preds_train$raw_preds,
+			preds = ifelse(raw_preds > threshold, "Trump", "Staff")
+		)
 
-(data_test <-
-	tibble(
-		labels = labels_test$label,
-		raw_preds = preds_test$raw_preds,
-		preds = ifelse(raw_preds > threshold, "Trump", "Staff")
-	))
-```
+data_test <-
+		tibble(
+			labels = labels_test$label,
+			raw_preds = preds_test$raw_preds,
+			preds = ifelse(raw_preds > threshold, "Trump", "Staff")
+		)
+
 
 ## Evaluation
 
 ### Accuracy
-```{r}
 train_acc <- mean(data_train$labels == data_train$preds)
 test_acc <- mean(data_test$labels == data_test$preds)
 print(c("Training Accuracy" = train_acc, "Test Accuracy" = test_acc))
-```
+
 
 ### AUC
-```{r}
 pred_train <- prediction(data_train$raw_preds, data_train$labels)
 perf_train <- performance(pred_train, "auc")
 perf_train_plot <- performance(pred_train, "tpr", "fpr")
@@ -91,9 +89,7 @@ perf_test_plot <- performance(pred_test, "tpr", "fpr")
 auc_test <- perf_test@y.values[[1]]
 
 print(c("Train AUC" = auc_train, "Test AUC" = auc_test))
-```
 
-```{r}
 model_train_perf_data <-
 	tibble(
 		fpr = perf_train_plot@x.values[[1]],
@@ -105,9 +101,7 @@ model_test_perf_data <-
 		fpr = perf_test_plot@x.values[[1]],
 		tpr = perf_test_plot@y.values[[1]]
 	)
-```
 
-```{r}
 model_train_perf_data %>% 
 	ggplot(aes(x = fpr, y = tpr)) +
 	geom_line() +
@@ -133,12 +127,9 @@ model_test_perf_data %>%
 		x = "True Positive Rate",
 		y = "False Positive Rate"
 	)
-```
+
 
 ### Calibration Plots
-
-Transform data
-```{r}
 data_calib_train <-
 	data_train %>% 
 	mutate(
@@ -164,10 +155,7 @@ data_calib_test <-
 		model_perc = mean(raw_preds),
 		emp_perc = mean(labels == "Trump")
 	)
-```
 
-Plot data
-```{r}	
 data_calib_train %>% 
 	ggplot(aes(x = model_perc, y = emp_perc, size = size)) +
 	geom_point(alpha = .6) +
@@ -206,4 +194,3 @@ data_calib_test %>%
 		x = "Model Percentage",
 		y = "Empiral Percentage"
 	)
-```
