@@ -43,6 +43,7 @@ Assuming the above steps went well, all you need to replicate the steps below ar
 #### If only feature-related changes have been made
 1. Run the following shell script, which will execute the neccessary training, predicting, and evaluation steps as below, where <model_number> corresponds to the relevant model you wish to test.
 ```
+chmod u+x model_creator.sh
 bash model_creator.sh <model_number>
 ```
 
@@ -100,16 +101,16 @@ Description: Hour and minute are both continuous, checks num_caps, num_ats, num_
 Format file: vw_format_m2.py
 Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
 Terminal command: bash model_creator.sh 2
-Test accuracy: 
-Test AUC: 
+Test accuracy: 0.8433735
+Test AUC: 0.9220839
 Description: same as model 1, except time is only hour indicators (e.g. hour_1, hour2, etc.)
 
 #### Model 3
 Format file: vw_format_m3.py
 Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
 Terminal command: bash model_creator.sh 3
-Test accuracy: 
-Test AUC: 
+Test accuracy: 0.8393574
+Test AUC: 0.9249672
 Description: same as model 1, except time is represented by four "parts of day", e.g. "morning" 
 
 ### Results

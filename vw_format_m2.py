@@ -28,19 +28,19 @@ def get_datetime_features(dt_info):
 
 
 # NOTE: Still need to implment tweet length
-def get_text_features(text_info):
+def get_stats_features(stats_info):
     
-    return (" |stats num_caps:" + count_char_type(text_info, "caps") 
-            + " num_ats:" + count_char_type(text_info, "ats") 
-            + " num_hash:" + count_char_type(text_info, "hash")
-            + " has_https_" + str("https:" in text_info)
-            + " is_retweet_" + str("\"@" in text_info))
+    return (" |stats num_caps:" + count_char_type(stats_info, "caps") 
+            + " num_ats:" + count_char_type(stats_info, "ats") 
+            + " num_hash:" + count_char_type(stats_info, "hash")
+            + " has_https_" + str("https:" in stats_info)
+            + " is_retweet_" + str("\"@" in stats_info))
 
 
-def count_char_type(text, char = "caps"):
+def count_char_type(stats, char = "caps"):
     count = 0
     
-    for letter in text:
+    for letter in stats:
         if (char == "caps" and letter.isupper()):
             count += 1
         elif (char == "hash" and letter == "#"):
@@ -60,14 +60,14 @@ for line in sys.stdin:
     
     label = get_label(tweet_info[INDEX_WHO])
     time_features = get_datetime_features(tweet_info[INDEX_DATETIME])
-    text_features = get_text_features(tweet_info[INDEX_TWEET])
+    stats_features = get_stats_features(tweet_info[INDEX_TWEET])
     
     # Print out formatted information, features are below
     
     # label 
     # |time hour:[hour] min_of_hour:[min_of_hour]
-    # |text num_caps:[num_caps] num_ats:[num_ats] num_hash:[num_hash] link retweet text_length:[text_length]
-    print(label + time_features + text_features)
+    # |stats num_caps:[num_caps] num_ats:[num_ats] num_hash:[num_hash] link retweet stats_length:[stats_length]
+    print(label + time_features + stats_features)
     
     # use nltk line below if we want to parse out the tweet
     #nltk.tokenize.casual.casual_tokenize(tweet_info[2])
