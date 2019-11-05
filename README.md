@@ -113,6 +113,127 @@ Test accuracy: 0.8393574
 Test AUC: 0.9249672
 Description: same as model 1, except time is represented by four "parts of day", e.g. "morning" 
 
+#### Model 4
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --ngram t2
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8634538
+Test AUC: 0.9182176
+Description: created 'text' namespace with cleaned tweet body and applied 2-gram. using model 3 "parts of day."
+
+#### Model 5
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --ngram t3
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8674699
+Test AUC: 0.9215596
+Description: equivalent to model 4, except now with 3-gram. using model 3 "parts of day."
+
+#### Model 6
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --ngram t3
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8674699
+Test AUC: 0.9189384
+Description: equivalent to model 4, except now with 4-gram. using model 3 "parts of day."
+
+#### Model 7
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --l1 0.00005 --l2 0.00005 --loss_function logistic --ngram t3
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8714859
+Test AUC: 0.9233290
+Description: equivalent to model 5, except now using regularization (L1=0.00005, L2=0.00005). using model 3 "parts of day."
+
+#### Model 8
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --nn 5
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8594378
+Test AUC: 0.9250983
+Description: Neural net with 5 hidden layers. 
+
+#### Model 9
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --nn 4
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8594378
+Test AUC: 0.9268676
+Description: Neural net with 4 hidden layers. 
+
+#### Model 10
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --nn 3
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8554217
+Test AUC: 0.9293578
+Description: Neural net with 3 hidden layers. 
+
+#### Model 11
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --nn 2
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8554217
+Test AUC: 0.9311927
+Description: Neural net with 2 hidden layers. 
+
+#### Model 12
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --nn 1
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8674699
+Test AUC: 0.9298820
+Description: Neural net with 1 hidden layer. 
+
+#### Model 13
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --nn 2 -q ss
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8714859
+Test AUC: 0.9334207
+Description: Neural net with 2 hidden layers, including quadratic interactions within stats namespace.
+
+
+#### Model 14
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --nn 1 --cubic sss
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8714859
+Test AUC: 0.9349279
+Description: Neural net with 1 hidden layer, including cubic interactions within stats namespace.
+
+#### Model 15
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --nn 1 --cubic sss --ngram t3
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8714859
+Test AUC: 0.9401048
+Description: Neural net with 1 hidden layer, including cubic interactions within stats namespace and 3-gram within text namespace.
+
+#### Model 16
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --nn 2 --cubic sss --ngram t3
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8674699
+Test AUC: 0.9410878
+Description: Neural net with 2 hidden layers, including cubic interactions within stats namespace and 3-gram within text namespace.
+
+#### Model 17
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --nn 2 -q ss --cubic sss --ngram t3
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8755020
+Test AUC: 0.9434469
+Description: Neural net with 2 hidden layers, including quadratic and cubic interactions within stats namespace and 3-gram within text namespace.
+
+#### Model 18
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --l1 0.01 --l2 0.01 --nn 2 -q ss --cubic sss --ngram t3
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.8795181
+Test AUC: 0.9435125
+Description: Neural net with 2 hidden layers, including both quadratic and cubic interactions within stats namespace, 3-gram within text namespace, and both L1 and L2 regularization.
+
 ### Results
 
 ### Conclusions and Limitations

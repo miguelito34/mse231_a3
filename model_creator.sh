@@ -9,7 +9,7 @@ echo ""
 echo "Training model $1..."
 echo ""
 
-vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
+vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --l1 0.01 --l2 0.01 --nn 1 -q ss --cubic sss --ngram t3
 
 echo ""
 echo "Creating predictions on training set..."
@@ -23,8 +23,8 @@ vw -d vw_test_data.txt -t -i predictor.vw -p test_predictions.txt --link=logisti
 
 echo ""
 echo "Here's information about model $1 features:"
+echo "MASKED: vw-varinfo --loss_function logistic vw_training_data.txt"
 echo ""
-vw-varinfo --loss_function logistic vw_training_data.txt
 
 echo ""
 echo "Evaluating model $1"
