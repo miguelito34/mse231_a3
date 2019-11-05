@@ -13,7 +13,7 @@ git remote add origin git@github.com:miguelito34/mse231_a3.git
 git pull origin master
 ```
 
-3. The first time you go to push a file, you may receive this note:
+The first time you go to push a file, you may receive this note:
 ```
 fatal: The current branch master has no upstream branch.
 To push the current branch and set the remote as upstream, use
@@ -40,6 +40,13 @@ make
 ### Replicate Steps
 Assuming the above steps went well, all you need to replicate the steps below are `training_data.tsv`, `test_data.tsv`, and `vw_format.py`. These steps should be re-run anytime changes to `vw_format.py` are made to ensure the model is being trained on the most up-to-date set of features.
 
+#### If only feature-related changes have been made
+1. Run the following shell script, which will execute the neccessary training, predicting, and evaluation steps as below, where <model_number> corresponds to the relevant model you wish to test.
+```
+bash model_creator.sh <model_number>
+```
+
+#### If you wish to run the steps manually
 1. Format the raw data into a vw readable format with the decided upon features
 ```
 cat training_data.tsv | python3 vw_format_m#.py > vw_training_data.txt
@@ -57,8 +64,15 @@ vw -d vw_training_data.txt -t -i predictor.vw -p training_predictions.txt --link
 vw -d vw_test_data.txt -t -i predictor.vw -p test_predictions.txt --link=logistic
 ```
 
-4. Evaluate in model_evaluation.Rmd
+4. Inspect variable information
+```
+vw-varinfo --loss_function logistic vw_training_data.txt
+```
 
+5. Evaluate in model_evaluation.R
+```
+Rscript model_evaluation.R
+```
 
 ### Data
 Data was provided by the teaching staff and can be found [here](https://5harad.com/mse231/assets/trump_data.tsv). Data is formatted with three columns as below:
@@ -72,13 +86,15 @@ In order to train our logistic model and determine who actually tweeted a given 
 #### Model 1
 Format file: vw_format_m1.py
 Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
-Test accuracy: 
-Test AUC: 
+Terminal command: bash model_creator.sh 1
+Test accuracy: 0.8393574
+Test AUC: 0.8830275
 Description: Hour and minute are both continuous, checks num_caps, num_ats, num_hash, has_https, is_retweet
 
 #### Model 2
 Format file: vw_format_m2.py
 Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
+Terminal command: bash model_creator.sh 2
 Test accuracy: 0.8433735
 Test AUC: 0.9220839
 Description: same as model 1, except time is only hour indicators (e.g. hour_1, hour2, etc.)
@@ -86,10 +102,10 @@ Description: same as model 1, except time is only hour indicators (e.g. hour_1, 
 #### Model 3
 Format file: vw_format_m3.py
 Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
+Terminal command: bash model_creator.sh 3
 Test accuracy: 0.8393574
 Test AUC: 0.9249672
 Description: same as model 1, except time is represented by four "parts of day", e.g. "morning" 
-
 
 ### Results
 
