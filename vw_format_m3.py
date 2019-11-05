@@ -36,13 +36,13 @@ def get_datetime_features(dt_info):
     elif (18 <= dt_object.hour <= 23):
         part_of_day = "evening"
 
-    return (" |time " + part_of_day)
+    return (" |clock " + part_of_day)
 
 
 # NOTE: Still need to implment tweet length
 def get_text_features(text_info):
     
-    return (" |text num_caps:" + count_char_type(text_info, "caps") 
+    return (" |stats num_caps:" + count_char_type(text_info, "caps") 
             + " num_ats:" + count_char_type(text_info, "ats") 
             + " num_hash:" + count_char_type(text_info, "hash")
             + " has_https_" + str("https:" in text_info)

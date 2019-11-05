@@ -24,13 +24,13 @@ def get_label(tweeter):
 
 def get_datetime_features(dt_info):
     dt_object = dt.strptime(dt_info, "%Y-%m-%dT%H:%M:%SZ")
-    return (" |time hour_" + str(dt_object.hour))
+    return (" |clock hour_" + str(dt_object.hour))
 
 
 # NOTE: Still need to implment tweet length
 def get_text_features(text_info):
     
-    return (" |text num_caps:" + count_char_type(text_info, "caps") 
+    return (" |stats num_caps:" + count_char_type(text_info, "caps") 
             + " num_ats:" + count_char_type(text_info, "ats") 
             + " num_hash:" + count_char_type(text_info, "hash")
             + " has_https_" + str("https:" in text_info)
