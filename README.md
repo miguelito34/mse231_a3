@@ -59,6 +59,10 @@ vw -d vw_test_data.txt -t -i predictor.vw -p test_predictions.txt --link=logisti
 
 4. Evaluate in model_evaluation.Rmd
 
+5. Variable importance
+```
+vw-varinfo --loss_function logistic vw_training_data.txt
+```
 
 ### Data
 Data was provided by the teaching staff and can be found [here](https://5harad.com/mse231/assets/trump_data.tsv). Data is formatted with three columns as below:
@@ -79,15 +83,15 @@ Description: Hour and minute are both continuous, checks num_caps, num_ats, num_
 #### Model 2
 Format file: vw_format_m2.py
 Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
-Test accuracy: 0.8433735
-Test AUC: 0.9220839
+Test accuracy: 
+Test AUC: 
 Description: same as model 1, except time is only hour indicators (e.g. hour_1, hour2, etc.)
 
 #### Model 3
 Format file: vw_format_m3.py
 Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
-Test accuracy: 0.8393574
-Test AUC: 0.9249672
+Test accuracy: 
+Test AUC: 
 Description: same as model 1, except time is represented by four "parts of day", e.g. "morning" 
 
 

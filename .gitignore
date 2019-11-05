@@ -5,3 +5,4 @@ train_predictions.txt
 training_predictions.txt
 vw_test_data.txt
 vw_training_data.txt
+.DS_Store
