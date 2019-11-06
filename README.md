@@ -90,12 +90,14 @@ source time_posted text
 In order to train our logistic model and determine who actually tweeted a given tweet, we parsed the data into the following features:
 
 #### Model 1
+```
 Format file: vw_format_m1.py
 Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic
 Terminal command: bash model_creator.sh 1
 Test accuracy: 0.8830645
 Test AUC: 0.9198413
 Description: Hour and minute are both continuous, checks num_caps, num_ats, num_hash, has_https, is_retweet
+```
 
 #### Model 2
 Format file: vw_format_m2.py
