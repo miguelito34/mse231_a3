@@ -19,7 +19,10 @@ train_prc <- .8
 
 
 ### Load Data
-data <- path_data %>% read_tsv
+data <- 
+	path_data %>% 
+	read_tsv(col_names = FALSE, quote = "~") %>% 
+	mutate(X2 = X2 %>% as.character())
 
 
 ## Split Data

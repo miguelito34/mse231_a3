@@ -30,7 +30,7 @@ threshold <- .5
 ### Load Data
 labels_train <-
 	path_training_data %>%
-	read_tsv(col_names = FALSE) %>%
+	read_tsv(col_names = TRUE) %>%
 	transmute(
 		label = X1
 	)
@@ -42,7 +42,7 @@ preds_train <-
 
 labels_test <-
 	path_test_data %>% 
-	read_tsv(col_names = FALSE) %>% 
+	read_tsv(col_names = TRUE) %>% 
 	transmute(
 		label = X1
 	)

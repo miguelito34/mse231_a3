@@ -23,7 +23,7 @@ def get_label(tweeter):
 
 
 def get_datetime_features(dt_info):
-    dt_object = dt.strptime(dt_info, "%Y-%m-%dT%H:%M:%SZ")
+    dt_object = dt.strptime(dt_info, "%Y-%m-%d %H:%M:%S")
     return (" |clock hour_" + str(dt_object.hour))
 
 
@@ -68,6 +68,3 @@ for line in sys.stdin:
     # |time hour:[hour] min_of_hour:[min_of_hour]
     # |stats num_caps:[num_caps] num_ats:[num_ats] num_hash:[num_hash] link retweet stats_length:[stats_length]
     print(label + time_features + stats_features)
-    
-    # use nltk line below if we want to parse out the tweet
-    #nltk.tokenize.casual.casual_tokenize(tweet_info[2])

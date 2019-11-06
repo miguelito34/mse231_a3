@@ -9,7 +9,7 @@ echo ""
 echo "Training model $1..."
 echo ""
 
-vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --l1 0.01 --l2 0.01 --nn 1 -q ss --cubic sss --ngram t3
+vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --ngram t2
 
 echo ""
 echo "Creating predictions on training set..."
