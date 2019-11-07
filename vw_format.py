@@ -25,19 +25,7 @@ def get_label(tweeter):
 
 def get_datetime_features(dt_info):
     dt_object = dt.strptime(dt_info, "%Y-%m-%d %H:%M:%S")
-
-    part_of_day = ""
-
-    if (0 <= dt_object.hour < 6):
-        part_of_day = "night"
-    elif (6 <= dt_object.hour < 12):
-        part_of_day = "morning"
-    elif (12 <= dt_object.hour < 18):
-        part_of_day = "afternoon"
-    elif (18 <= dt_object.hour <= 23):
-        part_of_day = "evening"
-
-    return (" |clock " + part_of_day)
+    return (" |clock hour_" + str(dt_object.hour))
 
 
 # NOTE: Still need to implment tweet length
