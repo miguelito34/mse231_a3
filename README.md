@@ -300,6 +300,16 @@ Test AUC: 0.9759259
 Description: Using hourly indicators rather than 6hr parts of day. Logistic loss, cubic interactions within stats, quadratic interactions between stats and clock, 2-gram within text.
 ```
 
+#### Model 22
+```
+Format file: vw_format_m6.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --cubic sss -q sc --ngram t2
+Terminal command: bash model_creator.sh 6
+Test accuracy: 0.9274194
+Test AUC: 0.9820106
+Description: Same as Model 21, but added indicators for short and long tweets
+```
+
 ### Results
 
 ### Conclusions and Limitations
