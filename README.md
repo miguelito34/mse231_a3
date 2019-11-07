@@ -277,7 +277,17 @@ Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function log
 Terminal command: bash model_creator.sh 4
 Test accuracy: 0.9032258 
 Test AUC: 0.9697751
-Description: logistic loss, cubic interactions within stats namespace, 2-gram within text namespace, 
+Description: logistic loss, cubic interactions within stats namespace, 2-gram within text namespace
+```
+
+#### Model 20
+```
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --cubic sss --ngram t3
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.9072581 
+Test AUC: 0.9667328
+Description: logistic loss, cubic interactions within stats namespace, 2-gram within text namespace
 ```
 
 ### Results

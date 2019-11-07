@@ -8,7 +8,6 @@ cat test_data.tsv | python3 vw_format_m$1.py > vw_test_data.txt
 echo ""
 echo "Training model $1..."
 echo ""
-
 vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --cubic sss --ngram t2
 
 echo ""
