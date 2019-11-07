@@ -270,6 +270,16 @@ Test AUC: 0.9583333
 Description: Neural net with 2 hidden layers, including both quadratic and cubic interactions within stats namespace, 3-gram within text namespace, and both L1 and L2 regularization.
 ```
 
+#### Model 19
+```
+Format file: vw_format_m4.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --cubic sss --ngram t2
+Terminal command: bash model_creator.sh 4
+Test accuracy: 0.9032258 
+Test AUC: 0.9697751
+Description: logistic loss, cubic interactions within stats namespace, 2-gram within text namespace, 
+```
+
 ### Results
 
 ### Conclusions and Limitations
