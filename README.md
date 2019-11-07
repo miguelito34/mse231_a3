@@ -290,6 +290,16 @@ Test AUC: 0.9667328
 Description: logistic loss, cubic interactions within stats namespace, 2-gram within text namespace
 ```
 
+#### Model 21
+```
+Format file: vw_format_m5.py
+Training command: vw -d vw_training_data.txt -f predictor.vw --loss_function logistic --cubic sss -q sc --ngram t2
+Terminal command: bash model_creator.sh 5
+Test accuracy: 0.9032258 
+Test AUC: 0.9759259 
+Description: Using hourly indicators rather than 6hr parts of day. Logistic loss, cubic interactions within stats, quadratic interactions between stats and clock, 2-gram within text.
+```
+
 ### Results
 
 ### Conclusions and Limitations
